@@ -2,11 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 app = Flask(__name__)
-app.secret_key = "secret123"
+app.secret_key = os.environ.get("SECRET_KEY", "secret123")
 
-DB_NAME = "phishing_results.db"
+DB_NAME = os.path.join("/tmp", "phishing_results.db")
 
 
 def init_db():
@@ -36,6 +37,9 @@ def init_db():
     conn.close()
 
 
+init_db()
+
+
 def is_logged_in():
     return "username" in session
 
@@ -46,8 +50,8 @@ def register():
     success = None
 
     if request.method == "POST":
-        username = request.form.get("username").strip()
-        password = request.form.get("password")
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
         if not username or not password:
             error = "Username and password are required"
@@ -83,8 +87,8 @@ def login():
     error = None
 
     if request.method == "POST":
-        username = request.form.get("username").strip()
-        password = request.form.get("password")
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
@@ -194,8 +198,6 @@ def delete_history():
 
     return redirect(url_for("dashboard"))
 
-
-init_db()
 
 if __name__ == "__main__":
     app.run(debug=True)
