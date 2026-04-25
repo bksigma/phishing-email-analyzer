@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+    <div class="login-card">
+        <button onclick="toggleTheme()" class="theme-toggle">🌙 / ☀️</button>
+
+        <span class="badge">Secure Login</span>
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Login to continue using the phishing email analysis system.</p>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <label class="label">Username</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+
+            <label class="label">Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit" class="btn primary full">Login</button>
+        </form>
+
+        <p class="hint">
+            New user?
+            <a href="/register">Create account</a>
+        </p>
+    </div>
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+}
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+}
+</script>
+
+</body>
+</html>

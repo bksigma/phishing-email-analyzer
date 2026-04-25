@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Analyze Email</h2>
+    <div>
+        <button onclick="toggleTheme()" class="theme-btn">Toggle Theme</button>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel">
+        <h1>Analyze Suspicious Email</h1>
+        <p class="subtitle">
+            Paste the full email content including headers, or upload a .eml / .txt file.
+        </p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label class="label">Paste Email Content</label>
+            <textarea name="email_text" placeholder="Paste full email header and body here..."></textarea>
+
+            <label class="label">Or Upload Email File</label>
+            <input type="file" name="email_file" accept=".eml,.txt" class="file-input">
+
+            <button type="submit" class="btn primary full">Analyze Email</button>
+        </form>
+    </div>
+
+    <div class="tips">
+        <h3>Detection Features</h3>
+        <ul>
+            <li>Email header analysis</li>
+            <li>Suspicious keyword detection</li>
+            <li>URL and domain inspection</li>
+            <li>Shortened link detection</li>
+            <li>Risky attachment extension detection</li>
+            <li>Basic impersonation intelligence</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+}
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+}
+</script>
+
+</body>
+</html>

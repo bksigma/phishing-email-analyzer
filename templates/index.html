@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Simulation & Email Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Phishing Analyzer</h2>
+
+    <div class="nav-actions">
+        <span class="welcome">Welcome, {{ username }}</span>
+        <button onclick="toggleTheme()" class="theme-toggle">🌙 / ☀️</button>
+        <a href="/analyze">Analyze</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="hero-content">
+        <span class="badge">Cybersecurity Awareness Tool</span>
+        <h1>Phishing Simulation & Email Analysis System</h1>
+        <p>
+            A professional cybersecurity tool for analyzing suspicious emails,
+            detecting phishing indicators, scoring risk, and tracking analysis history.
+        </p>
+
+        <div class="buttons">
+            <a href="/analyze" class="btn primary">Start Email Analysis</a>
+        </div>
+    </div>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Email Analysis</h3>
+        <p>Detect suspicious words, phishing patterns, and risky links.</p>
+    </div>
+
+    <div class="card">
+        <h3>Risk Scoring</h3>
+        <p>Classifies emails as Low, Medium, or High Risk.</p>
+    </div>
+
+    <div class="card">
+        <h3>User History</h3>
+        <p>Each user can view and manage their own analysis history.</p>
+    </div>
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+}
+
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+}
+</script>
+
+</body>
+</html>

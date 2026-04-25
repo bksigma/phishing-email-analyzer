@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Analysis Result</h2>
+    <div>
+        <button onclick="toggleTheme()" class="theme-btn">Toggle Theme</button>
+        <a href="/analyze">Analyze Again</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="result-card {{ risk_class }}">
+        <h1 class="risk {{ risk_class }}">{{ risk }}</h1>
+        <p>{{ message }}</p>
+
+        <div class="score-box">
+            <span>Risk Score</span>
+            <strong>{{ score }}</strong>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" style="width: {{ score }}%"></div>
+        </div>
+
+        <br><br>
+        <a href="/report/{{ result_id }}" class="btn primary">Download PDF Report</a>
+    </div>
+
+    <div class="panel">
+        <h2>Email Header Summary</h2>
+        <p><strong>Sender:</strong> {{ sender }}</p>
+        <p><strong>Subject:</strong> {{ subject }}</p>
+    </div>
+
+    <div class="panel">
+        <h2>Header Analysis Findings</h2>
+        {% if header_findings %}
+            <ul class="findings">
+                {% for item in header_findings %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No header findings detected.</p>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <h2>Detected Findings</h2>
+        {% if findings %}
+            <ul class="findings">
+                {% for item in findings %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No major phishing indicators detected.</p>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <h2>Detected URLs</h2>
+        {% if urls %}
+            <ul class="findings">
+                {% for url in urls %}
+                    <li>{{ url }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No URLs detected.</p>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <h2>Highlighted Email Content</h2>
+        <pre class="email-preview">{{ highlighted_email | safe }}</pre>
+    </div>
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+}
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+}
+</script>
+
+</body>
+</html>
